@@ -1,4 +1,6 @@
 import itertools
+import random
+import os
 
 def powerset(S):
     """
@@ -40,7 +42,7 @@ Peg = P
 
 # system variables
 Occ = set()
-Free = set()
+Free = S.difference(Occ)
 W = set()
 over = False
 
@@ -58,11 +60,6 @@ def NextPlayerMove(peg, pos):
         Occ.add(pos)
         ok = not ok
         board[pos[0]-1][pos[1]-1] = str(peg)
-
-    # print board
-    print()
-    for x in board:
-        print(x)
 
     if ok and pos in T:
         One.add(peg)
@@ -132,17 +129,26 @@ def main():
     global W
     global over
     global turn
-    print("2 player game")
-    print("whoever completes the magic square wins")
-    print("magic square = sum of every row is 15 and sum of every column is 15")
-    print("if a player completes a row or column and the sum is less than 15, the other player wins")
-    # print board
-    for x in board:
-        print(x)
-    print("peg: use integers 1 - 9")
-    print("pos: row, column (ex. `1, 1` or `2, 3` or `3, 1` etc)")
+
+    given = [[1, 6, 8], [2, 4, 9], [3, 5, 7], [9, 5, 6], [4, 8, 7], [3, 7, 6]]
+    f = random.choice(tuple(F))
+    a, *_ = f
+    _, b, *_ = f
+    *_, c = f
+    g = random.choice(given)
+    NextPlayerMove(g[0], a)
+    NextPlayerMove(g[1], b)
+    NextPlayerMove(g[2], c)
 
     while (1):
+        os.system("cls")
+        print("Magic Square: 2 player game")
+        print("Whoever completes the magic square wins")
+        print("Magic square = sum of every row is 15 and sum of every column is 15")
+        print("If a player completes a row or column and the sum is less than 15, the other player wins\n")
+        print("For pegs, use integers 1-9, no duplicates allowed on the board")
+        print("For pos, use format `row, column`, ex. 1, 1 = first row, first column")
+        
         # system facts
         Free = S.difference(Occ)
         Peg = P.difference(One.union(Two, Three, Four, Five, Six))
@@ -153,6 +159,11 @@ def main():
         W.add(frozenset(Four))
         W.add(frozenset(Five))
         W.add(frozenset(Six))
+
+        # print board
+        print()
+        for x in board:
+            print(x)
 
         first = False
         second = True
@@ -172,20 +183,21 @@ def main():
 
         peg = 'a'
         # user input peg
-        while (peg not in P):
+        while (peg not in Peg):
+            peg = 'a'
             while (peg.isdigit()==False or len(peg)!=1):
-                peg = input("input peg: ")
+                peg = input("Enput peg (1-9): ")
             peg = int(peg)
 
         pos = (0, 0)
         # user input pos
-        while (pos not in S):
+        while (pos not in Free):
             pos = 'a'
             while(len(pos)!=4 or not pos[0].isdigit() or pos[1]!=',' or pos[2]!=' ' or not pos[3].isdigit()):
-                pos = input("input pos: ")
+                pos = input("Enter pos (row, column): ")
             pos = (int(pos[0]), int(pos[3]))
 
-        NextPlayerMove(peg, pos)
+        NextPlayerMove(peg, pos)      
 
 if __name__ == "__main__":
     main()

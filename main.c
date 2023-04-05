@@ -76,7 +76,7 @@ int main()
     int takenPeg[9];
     tuple takenPos[9];
 
-    int given[][3] = {{1, 6, 8}, {2, 4, 9}, {3, 5, 7}}; // possible given values
+    int given[][3] = {{1, 6, 8}, {2, 4, 9}, {3, 5, 7}, {9, 5, 6}, {4, 8, 7}, {3, 7, 6}}; // possible given values
 
     // set F = any 3 cells on grid excluding diagonals
     // used for given values (like in sudoku)
@@ -93,7 +93,7 @@ int main()
             (((abs(rand1-rand2) == 8 ? 4 : abs(rand1-rand2)) == 4 && (abs(rand1-rand3) == 8 ? 4 : abs(rand1-rand3)) == 4 && (abs(rand2-rand3) == 8 ? 4 : abs(rand2-rand3)) == 4) ||
             ((abs(rand1-rand2) == 4 ? 2 : abs(rand1-rand2)) == 2 && (abs(rand1-rand3) == 4 ? 2 : abs(rand1-rand3)) == 2 && (abs(rand2-rand3) == 4 ? 2 : abs(rand2-rand3)) == 2)));
 
-    int givenIndex = rand() % 3;
+    int givenIndex = rand() % 6;
     board[map(rand1).x][map(rand1).y] = given[givenIndex][0];
     board[map(rand2).x][map(rand2).y] = given[givenIndex][1];
     board[map(rand3).x][map(rand3).y] = given[givenIndex][2];
@@ -158,7 +158,7 @@ int main()
         // the purposes of both ok and next are already taken care of in the input handling
 
         // over biconditional : conditions for a game over
-        // set W used here, each element w in W represents the pegs in a row/column (W = {One} ∪ {T wo} ∪ {T hree} ∪ {F our} ∪ {F ive} ∪ {Six})
+        // set W used here, each element w in W represents the pegs in a row/column (W = {One} ∪ {Two} ∪ {Three} ∪ {Four} ∪ {Five} ∪ {Six})
         // if any row sum < 15 or if any column sum < 15 and all spaces in line are filled
         for (i = 0; i < 3; i++)
             if ((board[i][0] + board[i][1] + board[i][2] < 15 && board[i][0] != 0 && board[i][1] != 0 && board[i][2] != 0) ||
