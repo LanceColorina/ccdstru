@@ -21,32 +21,32 @@ tuple map (int num)
 {
     tuple cell;
     if (num == 1) {
-        cell.x = 0;
-        cell.y = 0;
+        cell.x = 1;
+        cell.y = 1;
     } else if (num == 2) {
-        cell.x = 0;
-        cell.y = 1;
+        cell.x = 1;
+        cell.y = 2;
     } else if (num == 3) {
-        cell.x = 0;
-        cell.y = 2;
+        cell.x = 1;
+        cell.y = 3;
     } else if (num == 4) {
-        cell.x = 1;
-        cell.y = 0;
+        cell.x = 2;
+        cell.y = 1;
     } else if (num == 5) {
-        cell.x = 1;
-        cell.y = 1;
+        cell.x = 2;
+        cell.y = 2;
     } else if (num == 6) {
-        cell.x = 1;
-        cell.y = 2;
+        cell.x = 2;
+        cell.y = 3;
     } else if (num == 7) {
-        cell.x = 2;
-        cell.y = 0;
-    } else if (num == 8) {
-        cell.x = 2;
+        cell.x = 3;
         cell.y = 1;
-    } else if (num == 9) {
-        cell.x = 2;
+    } else if (num == 8) {
+        cell.x = 3;
         cell.y = 2;
+    } else if (num == 9) {
+        cell.x = 3;
+        cell.y = 3;
     }
     return cell;
 }
@@ -94,12 +94,12 @@ int main()
             ((abs(rand1-rand2) == 4 ? 2 : abs(rand1-rand2)) == 2 && (abs(rand1-rand3) == 4 ? 2 : abs(rand1-rand3)) == 2 && (abs(rand2-rand3) == 4 ? 2 : abs(rand2-rand3)) == 2)));
 
     int givenIndex = rand() % 6;
-    board[map(rand1).x][map(rand1).y] = given[givenIndex][0];
-    board[map(rand2).x][map(rand2).y] = given[givenIndex][1];
-    board[map(rand3).x][map(rand3).y] = given[givenIndex][2];
-    takenPeg[0] = rand1;    // takenPeg represents which pegs are already on the game board
-    takenPeg[1] = rand2;
-    takenPeg[2] = rand3;
+    board[map(rand1).x-1][map(rand1).y-1] = given[givenIndex][0];
+    board[map(rand2).x-1][map(rand2).y-1] = given[givenIndex][1];
+    board[map(rand3).x-1][map(rand3).y-1] = given[givenIndex][2];
+    takenPeg[0] = given[givenIndex][0];    // takenPeg represents which pegs are already on the game board
+    takenPeg[1] = given[givenIndex][1];
+    takenPeg[2] = given[givenIndex][2];
     takenPegLen += 3;
     takenPos[0] = map(rand1);   // takenPos represents which cells are already taken on the game board
     takenPos[1] = map(rand2);
